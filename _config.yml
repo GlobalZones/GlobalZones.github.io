@@ -1,10 +1,9 @@
-id: 41
+id: 40
 user: eq19
-span: span-22
+span: span-21
 title: eQuantum
-baseurl: /maps
-repository: GlobalZones/maps
-action: GlobalZones/GlobalZones.github.io/actions/runs/14622201267
+repository: GlobalZones/GlobalZones.github.io
+action: FeedMapping/headings/actions/runs/14954910500
 description: ₠Quantum Project
 
 #debug:
@@ -48,6 +47,6 @@ plugins:
   - jekyll-optional-front-matter
 
 track:
-  spin: [3, 1]
+  spin: [3, 0]
   pinned: [maps, feed, lexer, parser, syntax, grammar, rapidjson, ventoy, magisk, duckdb, ci, templates]
   organization: [Chetabahana, FeedMapping, GlobalZones, HybridModels, JunctionTerms, KernelPatterns, MappingSystem, NeuralSystem, ObjectModules, VirtualNetworks, WeakNegative, WeakPositive, ZeroWeak]
