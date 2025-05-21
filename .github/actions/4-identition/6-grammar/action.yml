@@ -179,7 +179,7 @@ runs:
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/repos/$GITHUB_REPOSITORY/dispatches" \
               -d '{"event_type": "retry_workflow", "client_payload": {"original_run_id": "$GITHUB_RUN_ID"}}'
-              echo -e "\nDispatched to https://github.com/${{ env.GITHUB_REPOSITORY }}/actions"
+              echo -e "\nRerun workflow since runner is offline on target repository:\n$TARGET_REPOSITORY"
             exit 1
  
           else

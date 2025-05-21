@@ -1,8 +1,7 @@
 #!/bin/bash
 
-SCOPE="repos"
-MAX_RETRIES=3
-RETRY_DELAY=20  # seconds
+MAX_RETRIES=10
+RETRY_DELAY=100  # seconds
 RUNNER_URL="https://github.com/$1"
 GH_API_URL="https://api.github.com/repos/$1/actions/runners"
 
@@ -44,14 +43,15 @@ register_runner() {
   # Forcefully remove old configuration
   if [ -f .runner ]; then
     echo "Forcefully removing old runner configuration"
+    rm -f .env
     rm -f .runner
     rm -f .credentials
     rm -f .credentials_rsaparams
-    rm -f .env
+    rm -rf _diag $RUNNER_WORK_DIRECTORY
   fi
 
   # Register with new token
-  echo "Exchanging the GitHub Access Token with a Runner Token (scope: ${SCOPE})..."
+  echo "Exchanging the GitHub Access Token with a Runner Token (scope: repos)..."
   _PROTO="$(echo "${RUNNER_URL}" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
   _URL="$(echo "${RUNNER_URL/${_PROTO}/}")"
   _PATH="$(echo "${_URL}" | grep / | cut -d/ -f2-)"
@@ -59,7 +59,7 @@ register_runner() {
   RUNNER_TOKEN="$(curl -XPOST -fsSL \
     -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
     -H "Accept: application/vnd.github.v3+json" \
-    "https://api.github.com/${SCOPE}/${_PATH}/actions/runners/registration-token" \
+    "https://api.github.com/repos/${_PATH}/actions/runners/registration-token" \
     | jq -r '.token')"
 
   if [ -z "$RUNNER_TOKEN" ]; then

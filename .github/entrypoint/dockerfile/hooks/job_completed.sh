@@ -28,7 +28,7 @@ if [ -d /mnt/disks/deeplearning/usr/local/sbin ]; then
   if [[ "$RERUN_RUNNER" == "true" ]]; then
     /mnt/disks/deeplearning/usr/bin/docker exec mydb supervisorctl start freqtrade
     /mnt/disks/deeplearning/usr/bin/docker exec mydb service cron start
-  else
+  elif /mnt/disks/deeplearning/usr/bin/docker ps | grep -q mydb; then
     if [[ "$CONTAINER_NAME" == "runner1" ]]; then
       /mnt/disks/deeplearning/usr/bin/docker exec runner2 /home/runner/scripts/exitpoint.sh $TARGET_REPOSITORY
     elif [[ "$CONTAINER_NAME" == "runner2" ]]; then
